@@ -1,5 +1,6 @@
 import Form from 'react-bootstrap/Form';
 import Button from '../Button/Button';
+import { Link } from 'react-router-dom';
 import "../FormLogin/FormLogin.css"
 
 function FormLogin() {
@@ -20,12 +21,11 @@ function FormLogin() {
                     <Form.Control className='input' type="password" placeholder="Digite sua senha" />
                 </Form.Group>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Button
+                    <Link style={{textDecoration: 'none'}} to="/home"><Button
                         text='Login'
-                        width='10vw'
                         height='6vh'
                         fontSize='18px'
-                    />
+                    /></Link>
                 </div>
             </Form>
 

@@ -10,3 +10,15 @@
     justify-content: center;
     align-items: center;
 }
+
+@media (min-width: 320px) and (max-width: 800px){
+    .button {
+        width: 25vw;
+        background-color: #11BCFF;
+        color: black;
+        border: none;
+        height: 10vh;
+        border-radius: 5px;
+        font-size: 24px;
+    }
+}

@@ -1,0 +1,27 @@
+/* Components/Navbar/Navbar.css */
+.navbar {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.navbar ul {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar li {
+    cursor: pointer;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.navbar li:hover {
+    color: #007bff;
+}
