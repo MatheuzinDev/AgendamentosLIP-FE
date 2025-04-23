@@ -4,9 +4,8 @@ function Navbar() {
     return (
         <nav className="navbar">
             <ul>
-                <li>Home</li>
-                <li>Sobre</li>
-                <li>Contato</li>
+                <li>Mesas do laboratório</li>
+                <img src="src\assets\do-utilizador.png" alt="Perfil" className='icone-perfil-navbar' />
             </ul>
         </nav>
     );

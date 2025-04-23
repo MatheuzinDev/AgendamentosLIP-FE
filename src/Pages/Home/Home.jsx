@@ -1,7 +1,7 @@
-import HamburgerMenu from "../../Components/MenuHamburger/MenuHamburger"
+import HamburgerMenu from "../../Components/MenuHamburger/MenuHamburger";
 import useIsMobile from "../../hooks/useIsMobile";
 import Navbar from "../../Components/Navbar/Navbar";
-import "../Home/Home.css"
+import "../Home/Home.css";
 import CardMesa from "../../Components/CardMesa/CardMesa";
 
 function Home() {
@@ -10,7 +10,17 @@ function Home() {
   return (
     <>
       <div className="page-container-home">
-        {isMobile ? <HamburgerMenu /> : <Navbar />}
+        {isMobile ? (
+          <div className="topbar-home">
+            <div className="left-topbar">
+              <HamburgerMenu />
+              <h1 className="titulo-pagina">Mesas do laboratório</h1>
+            </div>
+            <img src="src\assets\do-utilizador.png" alt="Perfil" className="icone-perfil" />
+          </div>
+        ) : (
+          <Navbar />
+        )}
 
         <div className="dashboard">
           <div className="dashboard-box">
@@ -43,8 +53,7 @@ function Home() {
         </div>
       </div>
     </>
-
   );
 }
 
-export default Home
+export default Home;

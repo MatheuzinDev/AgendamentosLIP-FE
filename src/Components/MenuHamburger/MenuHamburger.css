@@ -11,16 +11,19 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 260px;
+    width: 320px;
     height: 100vh;
     background: #ffffff;
-    box-shadow: 4px 0 16px rgba(0, 0, 0, 0.1);
+    box-shadow: 6px 0 20px rgba(0, 0, 0, 0.15);
     transform: translateX(-100%);
     transition: transform 0.3s ease;
-    padding-top: 90px;
+    padding: 60px 20px 20px 20px;
     display: flex;
     flex-direction: column;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+    z-index: 1001;
 }
 
 .menu.open {
@@ -92,33 +95,41 @@
     transform: translateY(-8px) rotate(-45deg);
 }
 
+/* Overlay */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+/* Lista do menu */
 .menu ul {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 40px 0 0 0;
 }
 
+/* Itens do menu */
 .menu li {
-    padding: 18px 30px;
-    border-bottom: 1px solid #f0f0f0;
-    font-size: 16px;
+    padding: 14px 20px;
+    border-radius: 12px;
+    font-size: 18px;
     color: #333;
+    font-weight: 500;
+    cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
+    gap: 12px;
+    transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .menu li:hover {
-    background-color: #f8f9fa;
-    color: #007bff;
-}
-
-.menu li::before {
-    content: "•";
-    color: #007bff;
-    font-size: 20px;
-    display: inline-block;
-    width: 10px;
+    background-color: #f0f4ff;
+    color: #1d4ed8;
+    transform: translateX(4px);
+    font-weight: 600;
 }
