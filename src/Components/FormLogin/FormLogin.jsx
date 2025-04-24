@@ -6,7 +6,6 @@ import "../FormLogin/FormLogin.css"
 function FormLogin() {
     return (
         <>
-            <Form className='form'>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Matrícula</Form.Label>
                     <Form.Control className='input' type="text" placeholder="Digite sua matrícula" />
@@ -27,7 +26,6 @@ function FormLogin() {
                         fontSize='18px'
                     /></Link>
                 </div>
-            </Form>
 
         </>
     )

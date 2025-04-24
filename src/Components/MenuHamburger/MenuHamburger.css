@@ -1,4 +1,4 @@
-/* Container principal */
+
 .hamburger-container {
     position: fixed;
     top: 20px;
@@ -6,7 +6,7 @@
     z-index: 1000;
 }
 
-/* Menu lateral */
+
 .menu {
     position: fixed;
     top: 0;
@@ -30,14 +30,14 @@
     transform: translateX(0);
 }
 
-/* Botão de fechar dentro do menu */
+
 .menu .hamburger {
     position: absolute;
     right: 20px;
     top: 20px;
 }
 
-/* Estilo do botão hamburguer */
+
 .hamburger {
     padding: 0;
     background: transparent;
@@ -95,7 +95,7 @@
     transform: translateY(-8px) rotate(-45deg);
 }
 
-/* Overlay */
+
 .menu-overlay {
     position: fixed;
     top: 0;
@@ -106,14 +106,14 @@
     z-index: 999;
 }
 
-/* Lista do menu */
+
 .menu ul {
     list-style: none;
     padding: 0;
     margin: 40px 0 0 0;
 }
 
-/* Itens do menu */
+
 .menu li {
     padding: 14px 20px;
     border-radius: 12px;

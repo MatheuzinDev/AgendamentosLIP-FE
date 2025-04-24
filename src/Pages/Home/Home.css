@@ -1,4 +1,4 @@
-/* Reset moderno */
+
 * {
     margin: 0;
     padding: 0;
@@ -6,17 +6,19 @@
     font-family: "Montserrat", sans-serif;
 }
 
-/* Container principal */
+body {
+    overflow-x: hidden;
+}
+
 .page-container-home {
     width: 100vw;
     min-height: 100vh;
-    overflow-x: hidden;
     background: #f8fafc;
     color: #1e293b;
     padding-bottom: 2rem;
 }
 
-/* Dashboard moderno */
+
 .dashboard {
     display: flex;
     justify-content: center;
@@ -27,7 +29,7 @@
 
 .dashboard-box {
     background: white;
-    height: 12vh;
+    height: 16vh;
     min-width: 300px;
     max-width: 250px;
     display: flex;
@@ -59,7 +61,7 @@
     font-weight: 700;
 }
 
-/* Seção de mesas */
+
 .mesas-section {
     padding: 0 5vw;
     margin-top: 2rem;
@@ -85,14 +87,14 @@
     border-radius: 3px;
 }
 
-/* Grid de mesas */
+
 .grid-mesas {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 1.25rem;
 }
 
-/* Legenda moderna */
+
 .legenda {
     display: flex;
     justify-content: center;
@@ -139,23 +141,21 @@
 }
 
 .titulo-pagina {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 600;
     color: #1e293b;
-    margin-left: 1.5rem;
-    margin-top: -0.2rem;
+    margin-left: 2.5rem;
 }
 
 .icone-perfil {
-    width: 36px;
-    height: 36px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     object-fit: cover;
     cursor: pointer;
 }
 
 
-/* Responsividade */
 @media (max-width: 768px) {
     .dashboard {
         flex-direction: column;
@@ -175,5 +175,51 @@
     .legenda {
         align-items: center;
         gap: 0.75rem;
+    }
+}
+
+
+/* Legenda */
+.legenda {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 3rem;
+    padding: 0 5vw;
+}
+
+.legenda div {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* Ajustes para mobile */
+@media (max-width: 768px) {
+    .legenda {
+        flex-direction: column; /* Empilha os itens */
+        gap: 0.5rem; /* Reduz o espaçamento vertical */
+        margin-top: 2rem;
+        padding: 0 10px;
+    }
+
+    .legenda div {
+        width: 100%;
+        max-width: 200px;
+        padding: 0.5rem 1rem; /* Reduz o padding */
+        font-size: 0.85rem; /* Tamanho da fonte menor */
+        gap: 0.5rem; /* Espaço entre ícone e texto */
+        margin: 0 auto; /* Centraliza */
+    }
+
+    .bolinha {
+        width: 12px; /* Tamanho reduzido */
+        height: 12px;
     }
 }
