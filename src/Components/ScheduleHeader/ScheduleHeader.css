@@ -1,0 +1,67 @@
+.schedule-header {
+    text-align: center;
+    padding: 2rem 0;
+    background: linear-gradient(135deg, #F9FAFB 0%, #F3F4F6 100%);
+    border-radius: 16px;
+    margin-bottom: 2rem;
+}
+
+.schedule-header h1 {
+    color: #1F2937;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.header-details {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: #4B5563;
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.material-icons {
+    color: #3B82F6;
+}
+
+/* ScheduleHeader.css */
+.icon-calendario {
+    width: 24px;
+    height: 24px;
+    filter: 
+      brightness(0) 
+      saturate(100%) 
+      invert(44%) 
+      sepia(98%) 
+      saturate(1352%) 
+      hue-rotate(162deg) 
+      brightness(87%) 
+      contrast(101%);
+  }
+
+
+@media (max-width: 768px) {
+    .schedule-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .header-details {
+        gap: 1rem;
+    }
+    
+    .detail-item {
+        font-size: 0.9rem;
+        padding: 0.6rem 1rem;
+    }
+}

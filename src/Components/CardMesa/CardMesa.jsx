@@ -1,4 +1,5 @@
-import "../CardMesa/CardMesa.css";
+import { Link } from "react-router-dom"
+import "../CardMesa/CardMesa.css"
 
 const CardMesa = ({ numero, status }) => {
   const getStatusClass = () => {
@@ -15,9 +16,11 @@ const CardMesa = ({ numero, status }) => {
   };
 
   return (
-    <div className={`mesa mesa-${getStatusClass()}`} data-status={status}>
-      <span className="numero-mesa">{numero}</span>
-    </div>
+    <Link to={`/agendamento/${numero}`} className="mesa-link">
+      <div className={`mesa mesa-${getStatusClass()}`} data-status={status}>
+        <span className="numero-mesa">{numero}</span>
+      </div>
+    </Link>
   );
 };
 

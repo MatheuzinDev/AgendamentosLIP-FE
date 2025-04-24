@@ -83,3 +83,10 @@
     content: 'Reservada';
     color: #f97316;
 }
+
+.mesa-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    height: 100%;
+}

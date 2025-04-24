@@ -1,0 +1,109 @@
+.time-slot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem;
+    margin: 0.8rem 0;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.time-slot.available {
+    border-left: 4px solid #10B981;
+    cursor: pointer;
+}
+
+.time-slot.available:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+}
+
+.time-slot.occupied {
+    border-left: 4px solid #EF4444;
+    opacity: 0.7;
+}
+
+.time {
+    font-size: 1.1rem;
+    color: #1F2937;
+    font-weight: 500;
+}
+
+.schedule-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #10B981;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background 0.3s ease;
+}
+
+.schedule-btn:hover {
+    background: #059669;
+}
+
+.occupied-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #EF4444;
+    padding: 0.8rem 1.2rem;
+    font-size: 0.95rem;
+}
+
+.icon-clock,
+.icon-block {
+  width: 24px;
+  height: 24px;
+  transition: filter 0.3s ease;
+}
+
+
+.icon-clock {
+  filter: brightness(0) invert(100%);
+}
+
+.icon-block {
+  filter: brightness(0) saturate(100%) invert(40%) sepia(91%) saturate(1818%) hue-rotate(335deg) brightness(98%) contrast(94%);
+}
+
+.schedule-btn:hover .icon-clock {
+  filter: brightness(0) invert(100%) opacity(0.8);
+}
+
+.occupied-badge:hover .icon-block {
+  filter: brightness(0) saturate(100%) invert(40%) sepia(91%) saturate(1818%) hue-rotate(335deg) brightness(120%) contrast(94%);
+}
+
+.schedule-btn {
+  background: #10B981; 
+  color: white;
+}
+
+.occupied-badge {
+  color: #EF4444; 
+}
+
+@media (max-width: 768px) {
+    .time-slot {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+    
+    .slot-status {
+        width: 100%;
+    }
+    
+    .schedule-btn, .occupied-badge {
+        width: 100%;
+        justify-content: center;
+    }
+}

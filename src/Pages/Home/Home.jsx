@@ -39,8 +39,8 @@ function Home() {
             {[...Array(9)].map((_, i) => (
               <CardMesa
                 key={i}
-                numero="2"
-                status="disponivel" // Pode ser "disponivel", "ocupada" ou "reservada"
+                numero={i + 1}  // Altere aqui
+                status="disponivel"
               />
             ))}
           </div>
