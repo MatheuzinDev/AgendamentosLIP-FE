@@ -2,7 +2,7 @@ import Logo from "../../Components/Logo/Logo"
 import FormLogin from "../../Components/FormLogin/FormLogin"
 import FormRegistro from "../../Components/FormRegistro/FormRegistro"
 import { useState } from "react"
-import "../Login/Login.css"
+import "../Login/Login.css";
 
 function Login() {
   const [isLogin, setIsLogin] = useState(true);
