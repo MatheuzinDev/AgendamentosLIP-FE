@@ -4,7 +4,7 @@ import TimeSlot from '../../Components/TimeSlot/TimeSlot';
 import Navbar from '../../Components/Navbar/Navbar';
 import useIsMobile from '../../hooks/useIsMobile';
 import '../Agendamento/Agendamento.css';
-import { IconArrowBack } from '../../Components/Icons/IconArrowBack';
+import IconArrowBack from "../../assets/arrowBack.png"
 
 function Agendamento() {
     const { mesaId } = useParams();
@@ -25,7 +25,7 @@ function Agendamento() {
             {isMobile ? (
                 <div className="mobile-header">
                     <Link to="/home" className="back-button">
-                        <IconArrowBack size={20} color="#3B82F6" />
+                        <img src={IconArrowBack} alt="" />
                         Voltar
                     </Link>
                 </div>

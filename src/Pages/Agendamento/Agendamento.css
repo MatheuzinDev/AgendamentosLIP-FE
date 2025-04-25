@@ -38,6 +38,21 @@
     color: #3b82f6;
     text-decoration: none;
     font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.back-button img {
+    width: 20px;
+    height: 20px;
+    filter: invert(39%) sepia(98%) saturate(1320%) hue-rotate(193deg) brightness(93%) contrast(93%);
+}
+
+.back-button:hover {
+    color: #1d4ed8;
+}
+
+.back-button:hover img {
+    filter: invert(22%) sepia(98%) saturate(2898%) hue-rotate(211deg) brightness(92%) contrast(93%);
 }
 
 @media (min-width: 768px) {
