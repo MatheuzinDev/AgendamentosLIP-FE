@@ -1,14 +1,17 @@
+import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ScheduleHeader from '../../Components/ScheduleHeader/ScheduleHeader';
 import TimeSlot from '../../Components/TimeSlot/TimeSlot';
 import Navbar from '../../Components/Navbar/Navbar';
+import ModalAgendamento from '../../Components/ModalAgendamento/ModalAgendamento';
 import useIsMobile from '../../hooks/useIsMobile';
 import '../Agendamento/Agendamento.css';
-import IconArrowBack from "../../assets/arrowBack.png"
+import IconArrowBack from "../../assets/arrowBack.png";
 
 function Agendamento() {
     const { mesaId } = useParams();
     const isMobile = useIsMobile();
+    const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 
     const timeSlots = [];
     for (let hour = 8; hour <= 18; hour++) {
@@ -20,12 +23,24 @@ function Agendamento() {
         });
     }
 
+    const handleSchedule = () => {
+        setShowConfirmationModal(true);
+    };
+
     return (
         <div className="agendamento-page">
+            <ModalAgendamento
+                show={showConfirmationModal}
+                onClose={() => setShowConfirmationModal(false)}
+                title="Solicitação Enviada!"
+                message="Seu pedido de agendamento foi recebido e está aguardando aprovação do supervisor."
+                buttonText="Entendido"
+            />
+
             {isMobile ? (
                 <div className="mobile-header">
                     <Link to="/home" className="back-button">
-                        <img src={IconArrowBack} alt="" />
+                        <img src={IconArrowBack} alt="Voltar" />
                         Voltar
                     </Link>
                 </div>
@@ -42,6 +57,7 @@ function Agendamento() {
                             key={index}
                             time={slot.time}
                             status={slot.status}
+                            onSchedule={handleSchedule}
                         />
                     ))}
                 </div>

@@ -1,20 +1,29 @@
 import "../TimeSlot/TimeSlot.css";
-import IconBlock from "../../assets/block.png"
-import IconClock from "../../assets/clock.png"
+import IconBlock from "../../assets/block.png";
+import IconClock from "../../assets/clock.png";
 
-const TimeSlot = ({ time, status = "available" }) => {
+const TimeSlot = ({ time, status = "available", onSchedule }) => {
+    const handleClick = () => {
+        if (status === "available" && typeof onSchedule === "function") {
+            onSchedule();
+        }
+    };
+
     return (
-        <div className={`time-slot ${status}`}>
+        <div className={`time-slot ${status}`} onClick={handleClick}>
             <span className="time">{time}</span>
             <div className="slot-status">
                 {status === "available" ? (
-                    <button className="schedule-btn">
-                        <img className="icon-clock" src={IconClock} alt="" />
+                    <button 
+                        className="schedule-btn"
+                        onClick={handleClick} // Handler corrigido
+                    >
+                        <img className="icon-clock" src={IconClock} alt="Ícone de relógio" />
                         Agendar
                     </button>
                 ) : (
                     <div className="occupied-badge">
-                        <img className="icon-block" src={IconBlock} alt="" />
+                        <img className="icon-block" src={IconBlock} alt="Ícone de bloqueado" />
                         Ocupado
                     </div>
                 )}
