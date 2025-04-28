@@ -3,6 +3,7 @@ import useIsMobile from "../../hooks/useIsMobile";
 import Navbar from "../../Components/Navbar/Navbar";
 import "../Home/Home.css";
 import CardMesa from "../../Components/CardMesa/CardMesa";
+import ImgPerfil from "../../assets/do-utilizador.png";
 
 function Home() {
   const isMobile = useIsMobile();
@@ -16,7 +17,7 @@ function Home() {
               <HamburgerMenu />
               <h1 className="titulo-pagina">Mesas do laboratório</h1>
             </div>
-            <img src="src\assets\do-utilizador.png" alt="Perfil" className="icone-perfil" />
+            <img src={ImgPerfil} alt="Perfil" className='icone-perfil'/>
           </div>
         ) : (
           <Navbar />

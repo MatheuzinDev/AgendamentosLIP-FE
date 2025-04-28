@@ -4,6 +4,7 @@ import useIsMobile from '../../hooks/useIsMobile';
 import Navbar from '../../Components/Navbar/Navbar';
 import HamburgerMenu from "../../Components/MenuHamburger/MenuHamburger";
 import "../Historico/Historico.css";
+import ImgPerfil from "../../assets/do-utilizador.png";
 
 const Historico = () => {
     const isMobile = useIsMobile();
@@ -44,7 +45,7 @@ const Historico = () => {
                         <HamburgerMenu />
                         <h1 id='titulo' className="titulo-pagina mobile-title">Meus Agendamentos</h1>
                     </div>
-                    <img src="/src/assets/do-utilizador.png" alt="Perfil" className="icone-perfil" />
+                    <img src={ImgPerfil} alt="Perfil" className='icone-perfil'/>
                 </div>
             ) : (
                 <>
