@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../MenuHamburger/MenuHamburger.css";
+import { Link } from "react-router-dom";
 
 function HamburgerMenu() {
     const [isOpen, setIsOpen] = useState(false);
@@ -20,30 +21,26 @@ function HamburgerMenu() {
                 </button>
 
                 <div className={`menu ${isOpen ? "open" : ""}`}>
-                    <button
-                        className={`hamburger hamburger--spin is-active`}
-                        type="button"
-                        onClick={() => setIsOpen(false)}
-                        style={{
-                            position: 'absolute',
-                            right: '20px',
-                            top: '20px'
-                        }}
-                    >
-                        <span className="hamburger-box">
-                            <span className="hamburger-inner"></span>
-                        </span>
-                    </button>
-
-
                     <ul>
-                        <li>🪑 Mesas do laboratório</li>
-                        <li>📅 Meus agendamentos</li>
-                        <li>⚙️ Configurações</li>
-
+                        <li>
+                            <Link to="/home" className="menu-link" onClick={() => setIsOpen(false)}>
+                                <span>🪑</span>
+                                <span>Mesas do laboratório</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/historico" className="menu-link" onClick={() => setIsOpen(false)}>
+                                <span>📅</span>
+                                <span>Meus agendamentos</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <div className="menu-link">
+                                <span>⚙️</span>
+                                <span>Configurações</span>
+                            </div>
+                        </li>
                     </ul>
-
-
                 </div>
             </div>
         </>
