@@ -16,7 +16,7 @@ const TimeSlot = ({ time, status = "available", onSchedule }) => {
                 {status === "available" ? (
                     <button 
                         className="schedule-btn"
-                        onClick={handleClick} // Handler corrigido
+                        onClick={handleClick}
                     >
                         <img className="icon-clock" src={IconClock} alt="Ícone de relógio" />
                         Agendar

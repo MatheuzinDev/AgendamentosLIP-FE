@@ -35,6 +35,12 @@ function HamburgerMenu() {
                             </Link>
                         </li>
                         <li>
+                            <Link to="/pedidos-supervisor" className="menu-link" onClick={() => setIsOpen(false)}>
+                                <span>📋</span>
+                                <span>Pedidos de Alunos</span>
+                            </Link>
+                        </li>
+                        <li>
                             <div className="menu-link">
                                 <span>⚙️</span>
                                 <span>Configurações</span>

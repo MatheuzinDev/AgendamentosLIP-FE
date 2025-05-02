@@ -3,6 +3,7 @@ import Home from "./Pages/Home/Home"
 import Agendamento from "./Pages/Agendamento/Agendamento"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Historico from "./Pages/Historico/Historico"
+import PedidosSupervisor from "./Pages/PedidosSupervisor/PedidosSupervisor"
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/historico" element={<Historico />} />
         <Route path="/agendamento/:mesaId" element={<Agendamento />} />
+        <Route path="/pedidos-supervisor" element={<PedidosSupervisor />} />
       </Routes>
     </BrowserRouter>
   )

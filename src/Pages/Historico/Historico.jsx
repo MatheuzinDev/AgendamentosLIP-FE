@@ -5,10 +5,11 @@ import Navbar from '../../Components/Navbar/Navbar';
 import HamburgerMenu from "../../Components/MenuHamburger/MenuHamburger";
 import "../Historico/Historico.css";
 import ImgPerfil from "../../assets/do-utilizador.png";
+import Button from "../../Components/Button/Button"
 
 const Historico = () => {
     const isMobile = useIsMobile();
-    
+
     const [agendamentos] = useState([
         {
             id: 1,
@@ -45,7 +46,7 @@ const Historico = () => {
                         <HamburgerMenu />
                         <h1 id='titulo' className="titulo-pagina mobile-title">Meus Agendamentos</h1>
                     </div>
-                    <img src={ImgPerfil} alt="Perfil" className='icone-perfil'/>
+                    <img src={ImgPerfil} alt="Perfil" className='icone-perfil' />
                 </div>
             ) : (
                 <>
@@ -56,10 +57,38 @@ const Historico = () => {
 
             <div className="historico-container">
                 <div className="filtros">
-                    <button className="filtro-ativo">Todos</button>
-                    <button>Pendentes</button>
-                    <button>Aceitos</button>
-                    <button>Rejeitados</button>
+                    <Button
+                        text="Todos"
+                        padding="0.5rem 1rem"
+                        borderRadius="8px"
+                        backgroundColor="#3b82f6"
+                        color="white"
+                        className="filtro-btn"
+                    />
+                    <Button
+                        text="Pendentes"
+                        padding="0.5rem 1rem"
+                        borderRadius="8px"
+                        backgroundColor="#e2e8f0"
+                        color="#64748b"
+                        className="filtro-btn"
+                    />
+                    <Button
+                        text="Aceitos"
+                        padding="0.5rem 1rem"
+                        borderRadius="8px"
+                        backgroundColor="#e2e8f0"
+                        color="#64748b"
+                        className="filtro-btn"
+                    />
+                    <Button
+                        text="Rejeitados"
+                        padding="0.5rem 1rem"
+                        borderRadius="8px"
+                        backgroundColor="#e2e8f0"
+                        color="#64748b"
+                        className="filtro-btn"
+                    />
                 </div>
 
                 <div className="lista-agendamentos">

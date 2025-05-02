@@ -16,11 +16,15 @@ function Button(props) {
     textDecoration: props.textDecoration,
   };
 
-  
+
 
   return (
     <>
-      <button className="button" style={buttonStyle} onClick={props.onClick}>
+      <button
+        className={`button ${props.className}`}
+        style={buttonStyle}
+        onClick={props.onClick}
+      >
         {props.text}
       </button>
     </>

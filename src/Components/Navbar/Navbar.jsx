@@ -12,6 +12,9 @@ function Navbar() {
                 <li>
                     <Link to="/historico" className="nav-link">Meus Agendamentos</Link>
                 </li>
+                <li>
+                    <Link to="/pedidos-supervisor" className="nav-link">Pedidos de Alunos</Link>
+                </li>
                 <li className="profile-icon">
                     <img src={ImgPerfil} alt="Perfil" className='icone-perfil-navbar' />
                 </li>

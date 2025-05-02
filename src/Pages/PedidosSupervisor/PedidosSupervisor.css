@@ -1,4 +1,4 @@
-.page-container-historico {
+.page-container-pedidos {
     width: 100vw;
     min-height: 100vh;
     background: #f8fafc;
@@ -6,8 +6,7 @@
     padding-bottom: 2rem;
 }
 
-/* Topbar Mobile */
-.topbar-historico {
+.topbar-pedidos {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -20,65 +19,18 @@
     z-index: 999;
 }
 
-.left-topbar {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    max-width: 80%;
-}
-
-.mobile-title {
-    margin: 0;
-    font-size: 1.2rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.icone-perfil {
-    width: 32px;
-    height: 32px;
-    min-width: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.historico-container {
+.pedidos-container {
     margin-top: 70px;
     padding: 1rem;
 }
 
-.filtros {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-}
-
-.filtros .filtro-btn {
-    transition: all 0.3s ease;
-}
-
-.filtros .filtro-btn:hover:not(.filtro-ativo) {
-    background-color: #cbd5e1 !important;
-    transform: translateY(-1px);
-}
-
-.filtro-ativo {
-    cursor: default !important;
-}
-
-.filtro-ativo:hover {
-    transform: none !important;
-}
-
-.lista-agendamentos {
+.lista-pedidos {
     display: grid;
     gap: 1.5rem;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
-.agendamento-card {
+.pedido-card {
     background: white;
     padding: 1.5rem;
     border-radius: 12px;
@@ -107,85 +59,78 @@
     color: #d97706;
 }
 
-.status-badge.aceito {
-    background: #dcfce7;
-    color: #16a34a;
-}
-
-.status-badge.rejeitado {
-    background: #fee2e2;
-    color: #dc2626;
-}
-
 .card-detalhes p {
     margin: 0.5rem 0;
     color: #475569;
 }
 
-.motivo-rejeicao {
-    color: #dc2626 !important;
-    font-weight: 500;
-    margin-top: 1rem !important;
+.card-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    justify-content: flex-end;
 }
 
-/* Desktop */
 @media (min-width: 769px) {
-
-    .historico-container {
+    .pedidos-container {
         margin-top: 20px;
         padding: 2rem 5vw;
         max-width: 1200px;
         margin-left: auto;
         margin-right: auto;
     }
-
-    .lista-agendamentos {
+    
+    .lista-pedidos {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
-
 @media (max-width: 768px) {
-    .historico-container {
+    .pedidos-container {
         margin-top: 70px;
         padding: 1.5rem;
     }
-
-    .lista-agendamentos {
+    
+    .lista-pedidos {
         grid-template-columns: 1fr;
     }
 
+    .card-actions {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
     #titulo {
         margin-left: 50px;
     }
-
 }
 
-
 @media (min-width: 768px) and (max-width: 1024px) {
-    .navbar-spacer {
-        height: 70px;
+    .page-container-pedidos {
+        padding-top: 80px;
     }
-
-    .historico-container {
-        margin-top: 50px;
+    
+    .pedidos-container {
+        margin-top: 30px; 
         padding: 2rem 3vw;
     }
-
-    .lista-agendamentos {
-        grid-template-columns: repeat(2, 1fr);
+    
+    .lista-pedidos {
+        grid-template-columns: repeat(2, 1fr); 
         gap: 2rem;
     }
-
-    .agendamento-card {
+    
+    .pedido-card {
         padding: 1.5rem;
+        margin-bottom: 1rem; 
     }
-
-    .filtros {
-        margin-bottom: 1.5rem;
+    
+    .navbar-spacer {
+        height: 90px; 
     }
-
-    #titulo {
-        margin-left: 50px;
+    
+    .card-actions {
+        flex-direction: row; 
+        justify-content: space-between;
     }
 }

@@ -1,24 +1,24 @@
 .button {
-    width: 20vw;
     background-color: #11BCFF;
     color: black;
     border: none;
-    height: 10vh;
     border-radius: 5px;
-    font-size: 24px;
-    display: flex;
+    font-size: 1rem;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    white-space: nowrap;
 }
 
 @media (min-width: 320px) and (max-width: 800px){
     .button {
-        width: 25vw;
-        background-color: #11BCFF;
-        color: black;
-        border: none;
-        height: 10vh;
-        border-radius: 5px;
-        font-size: 24px;
+        width: auto;
+        height: auto;
+        min-height: 40px;
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
     }
 }

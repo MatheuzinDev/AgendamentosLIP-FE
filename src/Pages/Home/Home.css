@@ -16,15 +16,61 @@ body {
     min-height: 100vh;
     background: #f8fafc;
     color: #1e293b;
-    padding-bottom: 2rem;
+    padding: 70px 0 2rem 0;
 }
 
-/* DASHBOARD */
+/* TOPO (TOPOBAR) */
+.topbar-home {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+}
+
+.left-topbar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;                
+    min-width: 0;           
+    overflow: hidden;       
+}
+
+.titulo-pagina {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-left: 50px;
+    white-space: nowrap;
+    overflow: hidden;       
+    text-overflow: ellipsis; 
+    max-width: 70vw;    
+}
+
+.icone-perfil {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.navbar-spacer {
+    height: 70px;
+}
+
 .dashboard {
     display: flex;
     justify-content: center;
     gap: 1.5rem;
-    margin-top: 5vh;
+    margin-top: 2vh;
     padding: 0 5vw;
 }
 
@@ -40,14 +86,14 @@ body {
     border-radius: 12px;
     text-align: center;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-                0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        0 2px 4px -1px rgba(0, 0, 0, 0.06);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .dashboard-box:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-                0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 .dashboard-box p {
@@ -62,7 +108,6 @@ body {
     font-weight: 700;
 }
 
-/* TÍTULOS DE SEÇÃO */
 .mesas-section {
     padding: 0 5vw;
     margin-top: 2rem;
@@ -88,14 +133,12 @@ body {
     border-radius: 3px;
 }
 
-/* GRID DE MESAS */
 .grid-mesas {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 1.25rem;
 }
 
-/* LEGENDA */
 .legenda {
     display: flex;
     justify-content: center;
@@ -134,35 +177,11 @@ body {
     background: #f97316;
 }
 
-/* TOPO (TOPOBAR) */
-.topbar-home {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 5vw;
-}
-
-.titulo-pagina {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #1e293b;
-    margin-left: 2.5rem;
-}
-
-.icone-perfil {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    object-fit: cover;
-    cursor: pointer;
-}
-
-/* RESPONSIVO PARA MOBILE */
 @media (max-width: 768px) {
     .dashboard {
         flex-direction: column;
         align-items: center;
-        margin-top: 5vh;
+        margin-top: 2vh;
     }
 
     .dashboard-box {
@@ -188,11 +207,27 @@ body {
         padding: 0.5rem 1rem;
         font-size: 0.85rem;
         gap: 0.5rem;
-        margin: 0 auto;
+    }
+}
+
+@media (min-width: 769px) {
+    .page-container-home {
+        padding-top: 90px;
     }
 
-    .bolinha {
-        width: 12px;
-        height: 12px;
+    .navbar {
+        background: white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 999;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .navbar {
+        background: white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 }
