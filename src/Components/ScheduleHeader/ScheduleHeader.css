@@ -65,3 +65,9 @@
         padding: 0.6rem 1rem;
     }
 }
+
+@media (min-width: 1024.1px) {
+    .schedule-header {
+        margin-top: 4rem; 
+    }
+}
