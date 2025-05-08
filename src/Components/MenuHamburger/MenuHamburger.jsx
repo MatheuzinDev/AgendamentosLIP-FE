@@ -40,15 +40,17 @@ function HamburgerMenu() {
                                 <span>Pedidos de Alunos</span>
                             </Link>
                         </li>
-                        <Link to="/qrcode" className="menu-link" onClick={() => setIsOpen(false)}>
-                            <span>📷</span>
-                            <span>Escanear QR Code</span>
-                        </Link>
                         <li>
-                            <div className="menu-link">
-                                <span>⚙️</span>
-                                <span>Configurações</span>
-                            </div>
+                            <Link to="/qrcode" className="menu-link" onClick={() => setIsOpen(false)}>
+                                <span>📷</span>
+                                <span>Escanear QR Code</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/perfil" className="menu-link" onClick={() => setIsOpen(false)}>
+                                <span>👤</span>
+                                <span>Meu Perfil</span>
+                            </Link>
                         </li>
                     </ul>
                 </div>

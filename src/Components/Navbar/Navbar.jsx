@@ -19,7 +19,9 @@ function Navbar() {
                     <Link to="/qrcode" className="nav-link">Escanear QR Code</Link>
                 </li>
                 <li className="profile-icon">
-                    <img src={ImgPerfil} alt="Perfil" className='icone-perfil-navbar' />
+                    <Link to="/perfil">
+                        <img src={ImgPerfil} alt="Perfil" className='icone-perfil-navbar' />
+                    </Link>
                 </li>
             </ul>
         </nav>

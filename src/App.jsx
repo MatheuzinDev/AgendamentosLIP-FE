@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Historico from "./Pages/Historico/Historico"
 import PedidosSupervisor from "./Pages/PedidosSupervisor/PedidosSupervisor"
 import QrCode from "./Pages/QrCode/QrCode"
+import Perfil from "./Pages/Perfil/Perfil"
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/agendamento/:mesaId" element={<Agendamento />} />
         <Route path="/pedidos-supervisor" element={<PedidosSupervisor />} />
         <Route path="/qrcode" element={<QrCode />} />
+        <Route path="/perfil" element={<Perfil />} />
       </Routes>
     </BrowserRouter>
   )
