@@ -40,33 +40,24 @@
     justify-content: flex-end;
 }
 
+/* Ajustes para o botão customizado */
 .actionButton {
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    font-weight: 500;
-    transition: opacity 0.2s;
+    transition: all 0.3s ease !important;
+    min-width: 100px;
 }
 
 .actionButton:hover {
+    transform: translateY(-1px);
     opacity: 0.9;
-}
-
-.acceptButton {
-    background-color: #16a34a;
-    color: white;
-}
-
-.rejectButton {
-    background-color: #dc2626;
-    color: white;
 }
 
 @media (max-width: 768px) {
     .cardActions {
         flex-direction: column;
-        gap: 0.5rem;
+    }
+    
+    .actionButton {
+        width: 100%;
     }
 }
 
