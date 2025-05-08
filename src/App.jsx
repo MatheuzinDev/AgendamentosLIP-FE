@@ -4,6 +4,7 @@ import Agendamento from "./Pages/Agendamento/Agendamento"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Historico from "./Pages/Historico/Historico"
 import PedidosSupervisor from "./Pages/PedidosSupervisor/PedidosSupervisor"
+import QrCode from "./Pages/QrCode/QrCode"
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/historico" element={<Historico />} />
         <Route path="/agendamento/:mesaId" element={<Agendamento />} />
         <Route path="/pedidos-supervisor" element={<PedidosSupervisor />} />
+        <Route path="/qrcode" element={<QrCode />} />
       </Routes>
     </BrowserRouter>
   )
