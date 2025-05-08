@@ -52,7 +52,6 @@ function Home() {
       <div className="legenda">
         <div><span className="bolinha verde"></span>Disponível</div>
         <div><span className="bolinha vermelha"></span>Ocupada</div>
-        <div><span className="bolinha laranja"></span>Reservada</div>
       </div>
     </div>
   );

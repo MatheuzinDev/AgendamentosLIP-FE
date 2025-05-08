@@ -5,7 +5,8 @@ import Navbar from '../../Components/Navbar/Navbar';
 import HamburgerMenu from "../../Components/MenuHamburger/MenuHamburger";
 import "../Historico/Historico.css";
 import ImgPerfil from "../../assets/do-utilizador.png";
-import Button from "../../Components/Button/Button"
+import Button from "../../Components/Button/Button";
+import CardAgendamento from '../../Components/CardAgendamento/CardAgendamento';
 
 const Historico = () => {
     const isMobile = useIsMobile();
@@ -93,22 +94,10 @@ const Historico = () => {
 
                 <div className="lista-agendamentos">
                     {agendamentos.map((agendamento) => (
-                        <div key={agendamento.id} className={`agendamento-card ${agendamento.status}`}>
-                            <div className="card-header">
-                                <h3>Mesa {agendamento.mesa}</h3>
-                                <span className={`status-badge ${agendamento.status}`}>
-                                    {agendamento.status}
-                                </span>
-                            </div>
-                            <div className="card-detalhes">
-                                <p>Data: {agendamento.data}</p>
-                                <p>Horário: {agendamento.horario}</p>
-                                <p>Supervisor: {agendamento.supervisor}</p>
-                                {agendamento.motivo && (
-                                    <p className="motivo-rejeicao">Motivo: {agendamento.motivo}</p>
-                                )}
-                            </div>
-                        </div>
+                        <CardAgendamento 
+                            key={agendamento.id} 
+                            agendamento={agendamento} 
+                        />
                     ))}
                 </div>
             </div>

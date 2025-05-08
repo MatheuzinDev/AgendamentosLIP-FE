@@ -1,0 +1,50 @@
+.agendamentoCard {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1rem;
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.statusBadge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.statusBadge.pendente {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.statusBadge.aceito {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.statusBadge.rejeitado {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.cardDetalhes p {
+    margin: 0.5rem 0;
+    color: #475569;
+}
+
+.motivoRejeicao {
+    color: #dc2626 !important;
+    font-weight: 500;
+    margin-top: 1rem !important;
+}
