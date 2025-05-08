@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import useIsMobile from '../../hooks/useIsMobile';
 import Navbar from '../../Components/Navbar/Navbar';
 import HamburgerMenu from "../../Components/MenuHamburger/MenuHamburger";
 import "../PedidosSupervisor/PedidosSupervisor.css";
 import ImgPerfil from "../../assets/do-utilizador.png";
-import Button from "../../Components/Button/Button"
+import CardPedidoSupervisor from '../../Components/CardPedidoSupervisor/CardPedidoSupervisor';
 
 const PedidosSupervisor = () => {
     const isMobile = useIsMobile();
@@ -61,37 +60,11 @@ const PedidosSupervisor = () => {
             <div className="pedidos-container">
                 <div className="lista-pedidos">
                     {pedidos.map((pedido) => (
-                        <div key={pedido.id} className="pedido-card">
-                            <div className="card-header">
-                                <h3>Mesa {pedido.mesa}</h3>
-                                <span className="status-badge pendente">
-                                    {pedido.status}
-                                </span>
-                            </div>
-                            <div className="card-detalhes">
-                                <p>Data: {pedido.data}</p>
-                                <p>Horário: {pedido.horario}</p>
-                                <p>Aluno: {pedido.aluno}</p>
-                            </div>
-                            <div className="card-actions">
-                                <Button
-                                    text="Aceitar"
-                                    padding="0.5rem 1rem"
-                                    borderRadius="8px"
-                                    backgroundColor="#16a34a"
-                                    color="white"
-                                    onClick={() => handleAcao(pedido.id, 'aceito')}
-                                />
-                                <Button
-                                    text="Rejeitar"
-                                    padding="0.5rem 1rem"
-                                    borderRadius="8px"
-                                    backgroundColor="#dc2626"
-                                    color="white"
-                                    onClick={() => handleAcao(pedido.id, 'rejeitado')}
-                                />
-                            </div>
-                        </div>
+                        <CardPedidoSupervisor 
+                            key={pedido.id}
+                            pedido={pedido}
+                            onAction={handleAcao}
+                        />
                     ))}
                 </div>
             </div>

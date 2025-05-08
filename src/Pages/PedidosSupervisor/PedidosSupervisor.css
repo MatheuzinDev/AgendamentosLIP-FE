@@ -30,47 +30,6 @@
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
-.pedido-card {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #e2e8f0;
-}
-
-.status-badge {
-    padding: 0.25rem 0.75rem;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    text-transform: capitalize;
-}
-
-.status-badge.pendente {
-    background: #fef3c7;
-    color: #d97706;
-}
-
-.card-detalhes p {
-    margin: 0.5rem 0;
-    color: #475569;
-}
-
-.card-actions {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1.5rem;
-    justify-content: flex-end;
-}
-
 @media (min-width: 769px) {
     .pedidos-container {
         margin-top: 20px;
@@ -95,11 +54,6 @@
         grid-template-columns: 1fr;
     }
 
-    .card-actions {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
     #titulo {
         margin-left: 50px;
     }
@@ -120,17 +74,7 @@
         gap: 2rem;
     }
     
-    .pedido-card {
-        padding: 1.5rem;
-        margin-bottom: 1rem; 
-    }
-    
     .navbar-spacer {
         height: 90px; 
-    }
-    
-    .card-actions {
-        flex-direction: row; 
-        justify-content: space-between;
     }
 }
