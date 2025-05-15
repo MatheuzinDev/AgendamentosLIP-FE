@@ -8,13 +8,12 @@ function Login() {
   const [isLogin, setIsLogin] = useState(true);
 
   const handleRegistroSuccess = () => {
-    setIsLogin(true); // Alterna para o formulário de login
-    alert('Registro realizado com sucesso!');
+    setIsLogin(true);
   };
 
   return (
     <div className="page-container">
-      <Logo />
+      <Logo />  
       <div className="form-container">
         <div className="toggle-container">
           <button 

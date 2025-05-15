@@ -68,4 +68,6 @@
 .registro-button-container {
     margin-top: 2vh;
     width: 100%;
+    display: flex;
+    justify-content: center;
 }

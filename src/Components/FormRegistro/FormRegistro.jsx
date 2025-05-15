@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from '../Button/Button';
-import { useNavigate } from 'react-router-dom';
 import api from '../../api/api';
-import { Link } from 'react-router-dom';
+import Spinner from '../Spinner/Spinner';
+import Notification from '../Notification/Notification';
 import "../FormRegistro/FormRegistro.css";
 
 function FormRegistro({ onSuccess }) {
-
     const [dados, setDados] = useState({
         nome: '',
         matricula: '',
@@ -15,45 +14,59 @@ function FormRegistro({ onSuccess }) {
         senha: ''
     });
     const [loading, setLoading] = useState(false);
+    const [notification, setNotification] = useState({
+        show: false,
+        message: '',
+        type: ''
+    });
+
+    const showNotification = (message, type) => {
+        setNotification({ show: true, message, type });
+    };
 
     const handleRegistro = async (e) => {
         e.preventDefault();
         setLoading(true);
 
         try {
-            const response = await api.post('/usuarios/criarUsuario', dados);
+            await api.post('/usuarios/criarUsuario', dados);
             
-            if (response.status === 201) {
-                onSuccess(); 
-                setDados({ 
+            showNotification('Conta criada com sucesso!', 'success');
+            
+            setTimeout(() => {
+                onSuccess();
+                setDados({
                     nome: '',
                     matricula: '',
                     email: '',
                     senha: ''
                 });
-            }
-            
-        } catch (error) {
-            let mensagem = 'Erro ao realizar registro';
-            
-            if (error.response) {
+            }, 1500);
 
-                console.error('Erro completo:', error.response);
-                
-                if (error.response.status === 409) {
-                    mensagem = `Já existe uma conta com este ${error.response.data.message}`;
-                } else {
-                    mensagem = error.response.data.error || mensagem;
-                }
-            }
-            alert(mensagem);
+        } catch (error) {
+            const conflictField = error.response?.data?.message || 'dados';
+            const mensagem = error.response?.status === 409 
+                ? `Já existe uma conta com esta ${conflictField}`
+                : 'Erro ao realizar registro';
+            
+            showNotification(mensagem, 'error');
         } finally {
             setLoading(false);
         }
-    }
+    };
 
     return (
         <>
+            {loading && <Spinner />}
+            
+            {notification.show && (
+                <Notification
+                    message={notification.message}
+                    type={notification.type}
+                    onClose={() => setNotification({ ...notification, show: false })}
+                />
+            )}
+
             <form onSubmit={handleRegistro} className="form-registro-container">
                 <Form.Group className="mb-3">
                     <Form.Label>Nome Completo</Form.Label>
@@ -77,7 +90,8 @@ function FormRegistro({ onSuccess }) {
                         value={dados.matricula}
                         onChange={(e) => setDados({ ...dados, matricula: e.target.value })}
                         required
-                        disabled={loading} />
+                        disabled={loading}
+                    />
                 </Form.Group>
 
                 <Form.Group className="mb-3">
@@ -106,10 +120,10 @@ function FormRegistro({ onSuccess }) {
                     />
                 </Form.Group>
 
-                <div className="registro-button-container" style={{ display: 'flex', justifyContent: 'center' }}>
+                <div className="registro-button-container">
                     <Button
                         type="submit"
-                        text={loading ? 'Carregando...' : 'Registrar'}
+                        text='Registrar'
                         height='6vh'
                         fontSize='18px'
                         disabled={loading}
