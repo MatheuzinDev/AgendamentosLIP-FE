@@ -7,6 +7,11 @@ import "../Login/Login.css";
 function Login() {
   const [isLogin, setIsLogin] = useState(true);
 
+  const handleRegistroSuccess = () => {
+    setIsLogin(true); // Alterna para o formulário de login
+    alert('Registro realizado com sucesso!');
+  };
+
   return (
     <div className="page-container">
       <Logo />
@@ -26,7 +31,10 @@ function Login() {
           </button>
         </div>
         
-        {isLogin ? <FormLogin /> : <FormRegistro />}
+        {isLogin ? 
+          <FormLogin /> : 
+          <FormRegistro onSuccess={handleRegistroSuccess} />
+        }
       </div>
     </div>
   );
