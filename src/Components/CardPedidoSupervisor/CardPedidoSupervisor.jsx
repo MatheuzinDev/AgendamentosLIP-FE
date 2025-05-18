@@ -36,7 +36,7 @@ const CardPedidoSupervisor = ({ pedido, onAction }) => {
               timeZone: 'UTC'
             })
           }</p>
-        <p>Aluno: {pedido.aluno.nome}</p>
+        <p>Aluno: {pedido.aluno}</p>
       </div>
 
       {pedido.status === 'PENDENTE' && (

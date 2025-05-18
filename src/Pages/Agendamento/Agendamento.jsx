@@ -52,17 +52,15 @@ function Agendamento() {
                 setLoading(true);
                 const hoje = new Date().toISOString().split('T')[0];
 
-                // Buscar apenas agendamentos ACEITOS para esta mesa específica
                 const { data: agendamentos } = await api.get(
                     `/agendamentos/listarAgendamentos?mesaId=${mesaId}&data=${hoje}&status=ACEITO`
                 );
 
                 const slotsComStatus = timeBlocks.map(block => {
-                    // Converter para UTC
+
                     const horaInicioUTC = block.start;
                     const horaFimUTC = block.end;
 
-                    // Verificar conflitos apenas com agendamentos aceitos
                     const ocupado = agendamentos.some(ag => {
                         const inicio = new Date(ag.horario_inicio)
                             .toISOString()

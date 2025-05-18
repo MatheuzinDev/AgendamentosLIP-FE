@@ -35,6 +35,7 @@ const PedidosSupervisor = () => {
         const carregarPedidos = async () => {
             try {
                 const { data } = await api.get('/agendamentos/pedidosPendentes');
+                console.log('Dados recebidos:', data);
                 setPedidos(data);
             } catch (error) {
                 console.error('Erro ao carregar pedidos:', error);
