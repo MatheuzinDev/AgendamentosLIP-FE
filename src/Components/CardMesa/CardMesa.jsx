@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import "../CardMesa/CardMesa.css"
 
-const CardMesa = ({ numero, status }) => {
+const CardMesa = ({ numero, status, id }) => {
   const getStatusClass = () => {
     switch (status) {
       case "disponivel":
@@ -16,7 +16,7 @@ const CardMesa = ({ numero, status }) => {
   };
 
   return (
-    <Link to={`/agendamento/${numero}`} className="mesa-link">
+    <Link to={`/agendamento/${id}`} className="mesa-link">
       <div className={`mesa mesa-${getStatusClass()}`} data-status={status}>
         <span className="numero-mesa">{numero}</span>
       </div>

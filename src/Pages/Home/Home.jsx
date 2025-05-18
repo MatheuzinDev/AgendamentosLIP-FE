@@ -85,6 +85,7 @@ function Home() {
               key={mesa.id}
               numero={mesa.numero}
               status={mesa.status.toLowerCase()}
+              id={mesa.id}
             />
           ))}
         </div>
