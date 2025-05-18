@@ -2,25 +2,39 @@ import React from 'react';
 import '../CardAgendamento/CardAgendamento.css';
 
 const CardAgendamento = ({ agendamento }) => {
-  return (
-    <div className={`agendamentoCard ${agendamento.status}`}>
-      <div className="cardHeader">
-        <h3>Mesa {agendamento.mesa}</h3>
-        <span className={`statusBadge ${agendamento.status}`}>
-          {agendamento.status}
-        </span>
-      </div>
+    const formatarData = (dataISO) => {
+        return new Date(dataISO).toLocaleDateString('pt-BR');
+    };
 
-      <div className="cardDetalhes">
-        <p>Data: {agendamento.data}</p>
-        <p>Horário: {agendamento.horario}</p>
-        <p>Supervisor: {agendamento.supervisor}</p>
-        {agendamento.motivo && (
-          <p className="motivoRejeicao">Motivo: {agendamento.motivo}</p>
-        )}
-      </div>
-    </div>
-  );
+    const formatarHorario = (horarioISO) => {
+        return new Date(horarioISO).toLocaleTimeString('pt-BR', { 
+            hour: '2-digit', 
+            minute: '2-digit',
+            timeZone: 'UTC'
+        });
+    };
+
+    return (
+        <div className={`agendamentoCard ${agendamento.status.toLowerCase()}`}>
+            <div className="cardHeader">
+                <h3>Mesa {agendamento.mesa.numero}</h3>
+                <span className={`statusBadge ${agendamento.status.toLowerCase()}`}>
+                    {agendamento.status.toLowerCase()}
+                </span>
+            </div>
+
+            <div className="cardDetalhes">
+                <p>Data: {formatarData(agendamento.data)}</p>
+                <p>Horário: {formatarHorario(agendamento.horario_inicio)} - {formatarHorario(agendamento.horario_fim)}</p>
+                {agendamento.supervisor?.nome && (
+                    <p>Supervisor: {agendamento.supervisor.nome}</p>
+                )}
+                {agendamento.motivo_rejeicao && (
+                    <p className="motivoRejeicao">Motivo: {agendamento.motivo_rejeicao}</p>
+                )}
+            </div>
+        </div>
+    );
 };
 
 export default CardAgendamento;

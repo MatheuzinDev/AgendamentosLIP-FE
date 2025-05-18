@@ -48,3 +48,41 @@
     font-weight: 500;
     margin-top: 1rem !important;
 }
+
+.agendamentoCard {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
+}
+
+.statusBadge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.statusBadge.pendente {
+    background-color: #f59e0b;
+    color: white;
+}
+
+.statusBadge.aceito {
+    background-color: #10B981;
+    color: white;
+}
+
+.statusBadge.rejeitado {
+    background-color: #EF4444;
+    color: white;
+}
+
+.motivoRejeicao {
+    color: #B91C1C;
+    background-color: #FEE2E2;
+    padding: 0.5rem;
+    border-radius: 4px;
+    margin-top: 0.5rem;
+}

@@ -78,6 +78,24 @@
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
+.filtro-btn {
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.filtro-ativo {
+    border-color: #1d4ed8 !important;
+    font-weight: 600;
+    transform: scale(1.05);
+}
+
+.filtro-btn:hover:not(.filtro-ativo) {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Mantenha as outras regras existentes */
+
 /* Desktop */
 @media (min-width: 769px) {
     .historico-container {
