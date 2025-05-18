@@ -6,44 +6,20 @@ import HamburgerMenu from "../../Components/MenuHamburger/MenuHamburger";
 import "../PedidosSupervisor/PedidosSupervisor.css";
 import ImgPerfil from "../../assets/do-utilizador.png";
 import CardPedidoSupervisor from '../../Components/CardPedidoSupervisor/CardPedidoSupervisor';
+import Spinner from '../../Components/Spinner/Spinner';
+import api from '../../api/api';
 
 
 const PedidosSupervisor = () => {
     const isMobile = useIsMobile();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
-
-    const [pedidos] = useState([
-        {
-            id: 1,
-            mesa: 5,
-            data: '15/03/2024',
-            horario: '14:00 - 15:00',
-            aluno: 'João Silva',
-            status: 'pendente'
-        },
-        {
-            id: 2,
-            mesa: 2,
-            data: '16/03/2024',
-            horario: '10:00 - 11:00',
-            aluno: 'Maria Oliveira',
-            status: 'pendente'
-        },
-        {
-            id: 3,
-            mesa: 7,
-            data: '14/03/2024',
-            horario: '16:00 - 17:00',
-            aluno: 'Carlos Pereira',
-            status: 'pendente'
-        }
-    ]);
+    const [pedidos, setPedidos] = useState([]);
 
     useEffect(() => {
         const verifyAccess = () => {
             const user = JSON.parse(localStorage.getItem('user'));
-            
+
             // Se não estiver logado ou não for supervisor
             if (!user || user.tipo !== 'SUPERVISOR') {
                 navigate('/home');
@@ -55,9 +31,46 @@ const PedidosSupervisor = () => {
         verifyAccess();
     }, [navigate]);
 
-    const handleAcao = (pedidoId, acao) => {
-        console.log(`Pedido ${pedidoId} ${acao}`);
+    useEffect(() => {
+        const carregarPedidos = async () => {
+            try {
+                const { data } = await api.get('/agendamentos/pedidosPendentes');
+                setPedidos(data);
+            } catch (error) {
+                console.error('Erro ao carregar pedidos:', error);
+            }
+        };
+
+        if (!loading) {
+            carregarPedidos();
+        }
+    }, [loading]);
+
+    const handleAcao = async (pedidoId, acao) => {
+        try {
+            let motivo;
+            if (acao === 'rejeitar') {
+                motivo = prompt('Digite o motivo da rejeição:');
+                if (!motivo) return;
+            }
+
+            await api.put(`/agendamentos/atualizarAgendamento/${pedidoId}`, {
+                status: acao === 'aceitar' ? 'ACEITO' : 'REJEITADO',
+                motivo_rejeicao: motivo || null,
+                supervisor_id: JSON.parse(localStorage.getItem('user')).id
+            });
+
+            setPedidos(pedidos.filter(p => p.id !== pedidoId));
+
+        } catch (error) {
+            console.error('Erro ao processar ação:', error);
+            alert('Ocorreu um erro ao processar a ação');
+        }
     };
+
+    if (loading) {
+        return <Spinner />;
+    }
 
     return (
         <div className="page-container-pedidos">
@@ -78,13 +91,28 @@ const PedidosSupervisor = () => {
 
             <div className="pedidos-container">
                 <div className="lista-pedidos">
-                    {pedidos.map((pedido) => (
-                        <CardPedidoSupervisor 
-                            key={pedido.id}
-                            pedido={pedido}
-                            onAction={handleAcao}
-                        />
-                    ))}
+                    {pedidos.map((pedido) => {
+                        const data = new Date(pedido.data);
+                        const inicio = new Date(pedido.horario_inicio);
+                        const fim = new Date(pedido.horario_fim);
+
+                        const dataFormatada = data.toLocaleDateString('pt-BR');
+                        const horarioInicio = `${inicio.getUTCHours().toString().padStart(2, '0')}:${inicio.getUTCMinutes().toString().padStart(2, '0')}`;
+                        const horarioFim = `${fim.getUTCHours().toString().padStart(2, '0')}:${fim.getUTCMinutes().toString().padStart(2, '0')}`;
+
+                        return (
+                            <CardPedidoSupervisor
+                                key={pedido.id}
+                                pedido={{
+                                    ...pedido,
+                                    data: dataFormatada,
+                                    horario: `${horarioInicio} - ${horarioFim}`,
+                                    aluno: pedido.aluno.nome
+                                }}
+                                onAction={handleAcao}
+                            />
+                        );
+                    })}
                 </div>
             </div>
         </div>

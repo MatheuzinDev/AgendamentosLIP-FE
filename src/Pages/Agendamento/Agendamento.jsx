@@ -52,13 +52,29 @@ function Agendamento() {
                 setLoading(true);
                 const hoje = new Date().toISOString().split('T')[0];
 
-                const { data: agendamentos } = await api.get(`/agendamentos/listarAgendamentos?mesaId=${mesaId}&data=${hoje}`);
+                // Buscar apenas agendamentos ACEITOS para esta mesa específica
+                const { data: agendamentos } = await api.get(
+                    `/agendamentos/listarAgendamentos?mesaId=${mesaId}&data=${hoje}&status=ACEITO`
+                );
 
                 const slotsComStatus = timeBlocks.map(block => {
-                    const ocupado = agendamentos.some(ag =>
-                        ag.horario_inicio.includes(block.start) &&
-                        ag.horario_fim.includes(block.end)
-                    );
+                    // Converter para UTC
+                    const horaInicioUTC = block.start;
+                    const horaFimUTC = block.end;
+
+                    // Verificar conflitos apenas com agendamentos aceitos
+                    const ocupado = agendamentos.some(ag => {
+                        const inicio = new Date(ag.horario_inicio)
+                            .toISOString()
+                            .split('T')[1]
+                            .substring(0, 5);
+                        const fim = new Date(ag.horario_fim)
+                            .toISOString()
+                            .split('T')[1]
+                            .substring(0, 5);
+
+                        return inicio === horaInicioUTC && fim === horaFimUTC;
+                    });
 
                     return {
                         ...block,
@@ -81,25 +97,32 @@ function Agendamento() {
     const handleSchedule = async (slot) => {
         try {
             setLoading(true);
+
+            // Atualização otimista para estado pendente
+            setTimeSlots(prev => prev.map(s =>
+                s.start === slot.start ? { ...s, status: 'pending' } : s
+            ));
+
             const user = JSON.parse(localStorage.getItem('user'));
-
             const dataAgendamento = new Date().toISOString().split('T')[0];
-
-            const horarioInicio = new Date(`${dataAgendamento}T${slot.start}:00Z`);
-            const horarioFim = new Date(`${dataAgendamento}T${slot.end}:00Z`);
-            console.log(horarioInicio)
 
             await api.post('/agendamentos/criarAgendamento', {
                 aluno_id: user.id,
                 mesa_id: mesaId,
                 data: dataAgendamento,
-                horario_inicio: horarioInicio.toISOString(),
-                horario_fim: horarioFim.toISOString()
+                horario_inicio: new Date(`${dataAgendamento}T${slot.start}:00Z`).toISOString(),
+                horario_fim: new Date(`${dataAgendamento}T${slot.end}:00Z`).toISOString()
             });
 
             setShowConfirmationModal(true);
             showNotification('Agendamento solicitado com sucesso!', 'success');
+
         } catch (error) {
+            // Reverter estado em caso de erro
+            setTimeSlots(prev => prev.map(s =>
+                s.start === slot.start ? { ...s, status: 'available' } : s
+            ));
+
             const mensagem = error.response?.data?.message || 'Erro ao agendar horário';
             showNotification(mensagem, 'error');
         } finally {

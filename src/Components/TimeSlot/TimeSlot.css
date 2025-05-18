@@ -25,6 +25,25 @@
     opacity: 0.7;
 }
 
+.time-slot.occupied .status-badge {
+    color: #EF4444;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.time-slot.pending {
+    background-color: #fef3c7;
+    border-color: #f59e0b;
+}
+
+.time-slot.pending .status-badge {
+    color: #b45309;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
 .time {
     font-size: 1.1rem;
     color: #1F2937;
@@ -49,6 +68,10 @@
     background: #059669;
 }
 
+.schedule-btn:hover .icon-clock {
+    filter: brightness(0) invert(100%) opacity(0.8);
+}
+
 .occupied-badge {
     display: flex;
     align-items: center;
@@ -60,35 +83,31 @@
 
 .icon-clock,
 .icon-block {
-  width: 24px;
-  height: 24px;
-  transition: filter 0.3s ease;
+    width: 24px;
+    height: 24px;
+    transition: filter 0.3s ease;
 }
 
-
 .icon-clock {
-  filter: brightness(0) invert(100%);
+    filter: brightness(0) invert(100%);
 }
 
 .icon-block {
-  filter: brightness(0) saturate(100%) invert(40%) sepia(91%) saturate(1818%) hue-rotate(335deg) brightness(98%) contrast(94%);
-}
-
-.schedule-btn:hover .icon-clock {
-  filter: brightness(0) invert(100%) opacity(0.8);
+    filter: brightness(0) saturate(100%) invert(40%) sepia(91%) saturate(1818%) hue-rotate(335deg) brightness(98%) contrast(94%);
 }
 
 .occupied-badge:hover .icon-block {
-  filter: brightness(0) saturate(100%) invert(40%) sepia(91%) saturate(1818%) hue-rotate(335deg) brightness(120%) contrast(94%);
+    filter: brightness(0) saturate(100%) invert(40%) sepia(91%) saturate(1818%) hue-rotate(335deg) brightness(120%) contrast(94%);
 }
 
-.schedule-btn {
-  background: #10B981; 
-  color: white;
+.status-badge.pending img {
+    filter: invert(75%) sepia(98%) saturate(415%) hue-rotate(358deg) brightness(99%) contrast(91%);
 }
 
-.occupied-badge {
-  color: #EF4444; 
+.time-slot.pending .icon-clock {
+    width: 24px !important;
+    height: 24px !important;
+    filter: invert(75%) sepia(98%) saturate(415%) hue-rotate(358deg) brightness(99%) contrast(91%);
 }
 
 @media (max-width: 768px) {
