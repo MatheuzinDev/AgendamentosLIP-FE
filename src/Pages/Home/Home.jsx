@@ -24,6 +24,7 @@ function Home() {
   useEffect(() => {
     const carregarMesas = async () => {
       try {
+        setLoading(true);
         const { data } = await api.get('/mesas/listarMesas');
         setMesas(data);
       } catch (error) {
