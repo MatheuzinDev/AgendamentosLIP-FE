@@ -82,21 +82,17 @@ function Agendamento() {
         try {
             setLoading(true);
             const user = JSON.parse(localStorage.getItem('user'));
-            const hoje = new Date();
 
-            const [startHours, startMinutes] = slot.start.split(':').map(Number);
-            const [endHours, endMinutes] = slot.end.split(':').map(Number);
+            const dataAgendamento = new Date().toISOString().split('T')[0];
 
-            const horarioInicio = new Date(hoje);
-            horarioInicio.setHours(startHours, startMinutes, 0, 0);
-
-            const horarioFim = new Date(hoje);
-            horarioFim.setHours(endHours, endMinutes, 0, 0);
+            const horarioInicio = new Date(`${dataAgendamento}T${slot.start}:00Z`);
+            const horarioFim = new Date(`${dataAgendamento}T${slot.end}:00Z`);
+            console.log(horarioInicio)
 
             await api.post('/agendamentos/criarAgendamento', {
                 aluno_id: user.id,
                 mesa_id: mesaId,
-                data: hoje.toISOString(),
+                data: dataAgendamento,
                 horario_inicio: horarioInicio.toISOString(),
                 horario_fim: horarioFim.toISOString()
             });

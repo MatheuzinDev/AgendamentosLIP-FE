@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 function HamburgerMenu() {
     const [isOpen, setIsOpen] = useState(false);
+    const user = JSON.parse(localStorage.getItem('user')); // Obter dados do usuário
 
     return (
         <>
@@ -34,12 +35,14 @@ function HamburgerMenu() {
                                 <span>Meus agendamentos</span>
                             </Link>
                         </li>
-                        <li>
-                            <Link to="/pedidos-supervisor" className="menu-link" onClick={() => setIsOpen(false)}>
-                                <span>📋</span>
-                                <span>Pedidos de Alunos</span>
-                            </Link>
-                        </li>
+                        {user?.tipo === 'SUPERVISOR' && (
+                            <li>
+                                <Link to="/pedidos-supervisor" className="menu-link" onClick={() => setIsOpen(false)}>
+                                    <span>📋</span>
+                                    <span>Pedidos de Alunos</span>
+                                </Link>
+                            </li>
+                        )}
                         <li>
                             <Link to="/qrcode" className="menu-link" onClick={() => setIsOpen(false)}>
                                 <span>📷</span>

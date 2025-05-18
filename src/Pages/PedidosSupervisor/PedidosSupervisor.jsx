@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useIsMobile from '../../hooks/useIsMobile';
 import Navbar from '../../Components/Navbar/Navbar';
 import HamburgerMenu from "../../Components/MenuHamburger/MenuHamburger";
@@ -6,8 +7,11 @@ import "../PedidosSupervisor/PedidosSupervisor.css";
 import ImgPerfil from "../../assets/do-utilizador.png";
 import CardPedidoSupervisor from '../../Components/CardPedidoSupervisor/CardPedidoSupervisor';
 
+
 const PedidosSupervisor = () => {
     const isMobile = useIsMobile();
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
 
     const [pedidos] = useState([
         {
@@ -35,6 +39,21 @@ const PedidosSupervisor = () => {
             status: 'pendente'
         }
     ]);
+
+    useEffect(() => {
+        const verifyAccess = () => {
+            const user = JSON.parse(localStorage.getItem('user'));
+            
+            // Se não estiver logado ou não for supervisor
+            if (!user || user.tipo !== 'SUPERVISOR') {
+                navigate('/home');
+                return;
+            }
+            setLoading(false);
+        };
+
+        verifyAccess();
+    }, [navigate]);
 
     const handleAcao = (pedidoId, acao) => {
         console.log(`Pedido ${pedidoId} ${acao}`);

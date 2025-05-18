@@ -3,6 +3,8 @@ import '../Navbar/Navbar.css';
 import ImgPerfil from "../../assets/do-utilizador.png";
 
 function Navbar() {
+    const user = JSON.parse(localStorage.getItem('user')); // Obter dados do usuário
+
     return (
         <nav className="navbar">
             <ul>
@@ -12,9 +14,11 @@ function Navbar() {
                 <li>
                     <Link to="/historico" className="nav-link">Meus Agendamentos</Link>
                 </li>
-                <li>
-                    <Link to="/pedidos-supervisor" className="nav-link">Pedidos de Alunos</Link>
-                </li>
+                {user?.tipo === 'SUPERVISOR' && (
+                    <li>
+                        <Link to="/pedidos-supervisor" className="nav-link">Pedidos de Alunos</Link>
+                    </li>
+                )}
                 <li>
                     <Link to="/qrcode" className="nav-link">Escanear QR Code</Link>
                 </li>
