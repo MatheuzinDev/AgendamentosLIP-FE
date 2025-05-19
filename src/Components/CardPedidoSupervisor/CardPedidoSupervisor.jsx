@@ -1,9 +1,12 @@
 import React from 'react';
+import { useState } from 'react';
 import '../CardPedidoSupervisor/CardPedidoSupervisor.css';
 import Button from '../Button/Button';
+import ModalRejeicao from '../ModalRejeicao/ModalRejeicao';
 
 const CardPedidoSupervisor = ({ pedido, onAction }) => {
-  // Função para formatar o status
+  const [showModal, setShowModal] = useState(false);
+
   const formatStatus = (status) => {
     const statusMap = {
       'PENDENTE': 'Pendente',
@@ -11,6 +14,17 @@ const CardPedidoSupervisor = ({ pedido, onAction }) => {
       'REJEITADO': 'Rejeitado'
     };
     return statusMap[status] || status;
+  };
+
+  const handleRejeitarClick = () => {
+    setShowModal(true);
+  };
+
+  const handleConfirmarRejeicao = (motivo) => {
+    if (motivo.trim()) {
+      setShowModal(false);
+      onAction(pedido.id, 'rejeitar', motivo);
+    }
   };
 
   return (
@@ -45,7 +59,7 @@ const CardPedidoSupervisor = ({ pedido, onAction }) => {
             borderRadius="8px"
             backgroundColor="#dc2626"
             color="white"
-            onClick={() => onAction(pedido.id, 'rejeitar')}
+            onClick={handleRejeitarClick}
             className="actionButton"
           />
         </div>
@@ -56,6 +70,13 @@ const CardPedidoSupervisor = ({ pedido, onAction }) => {
           <p><strong>Motivo da rejeição:</strong></p>
           <p>{pedido.motivo_rejeicao}</p>
         </div>
+      )}
+
+      {showModal && (
+        <ModalRejeicao
+          onClose={() => setShowModal(false)}
+          onConfirm={handleConfirmarRejeicao}
+        />
       )}
     </div>
   );

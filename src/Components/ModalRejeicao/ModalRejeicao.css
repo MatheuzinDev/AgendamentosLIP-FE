@@ -1,0 +1,149 @@
+.modal-rejeicao-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: modal-rejeicao-fadeIn 0.3s ease-out;
+}
+
+.modal-rejeicao-container {
+  background: white;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.modal-rejeicao-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.modal-rejeicao-header h3 {
+  margin: 0;
+  color: #1e293b;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.modal-rejeicao-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  color: #64748b;
+  cursor: pointer;
+  padding: 0.25rem;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.modal-rejeicao-close-btn:hover {
+  color: #475569;
+}
+
+.modal-rejeicao-body {
+  padding: 1.5rem 2rem;
+}
+
+.modal-rejeicao-input {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: #334155;
+  line-height: 1.5;
+  resize: vertical;
+  min-height: 120px;
+  transition: all 0.2s;
+}
+
+.modal-rejeicao-input:focus {
+  outline: none;
+  border-color: #94a3b8;
+  box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.1);
+}
+
+.modal-rejeicao-input::placeholder {
+  color: #94a3b8;
+  opacity: 0.8;
+}
+
+.modal-rejeicao-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.5rem;
+  padding: 1.5rem 2rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.modal-rejeicao-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.modal-rejeicao-btn-cancel {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+.modal-rejeicao-btn-cancel:hover {
+  background: #e2e8f0;
+}
+
+.modal-rejeicao-btn-confirm {
+  background: #dc2626;
+  color: white;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.modal-rejeicao-btn-confirm:disabled {
+  background: #fecaca;
+  cursor: not-allowed;
+}
+
+@keyframes modal-rejeicao-fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 480px) {
+  .modal-rejeicao-container {
+    max-width: 90vw;
+    border-radius: 12px;
+  }
+  
+  .modal-rejeicao-header {
+    padding: 1.25rem;
+  }
+  
+  .modal-rejeicao-body {
+    padding: 1.25rem;
+  }
+  
+  .modal-rejeicao-footer {
+    padding: 1.25rem;
+    gap: 1rem;
+  }
+  
+  .modal-rejeicao-btn {
+    padding: 0.75rem 1rem;
+  }
+}

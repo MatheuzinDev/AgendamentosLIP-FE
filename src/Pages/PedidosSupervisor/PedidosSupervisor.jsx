@@ -48,17 +48,11 @@ const PedidosSupervisor = () => {
         }
     }, [loading]);
 
-    const handleAcao = async (pedidoId, acao) => {
+    const handleAcao = async (pedidoId, acao, motivo = null) => {
         try {
-            let motivo;
-            if (acao === 'rejeitar') {
-                motivo = prompt('Digite o motivo da rejeição:');
-                if (!motivo) return;
-            }
-
             await api.put(`/agendamentos/atualizarAgendamento/${pedidoId}`, {
                 status: acao === 'aceitar' ? 'ACEITO' : 'REJEITADO',
-                motivo_rejeicao: motivo || null,
+                motivo_rejeicao: motivo,
                 supervisor_id: JSON.parse(localStorage.getItem('user')).id
             });
 
@@ -66,7 +60,6 @@ const PedidosSupervisor = () => {
 
         } catch (error) {
             console.error('Erro ao processar ação:', error);
-            alert('Ocorreu um erro ao processar a ação');
         }
     };
 
