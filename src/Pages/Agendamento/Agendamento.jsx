@@ -51,32 +51,30 @@ function Agendamento() {
             try {
                 setLoading(true);
                 const hoje = new Date().toISOString().split('T')[0];
+                const user = JSON.parse(localStorage.getItem('user'));
 
-                const { data: agendamentos } = await api.get(
-                    `/agendamentos/listarAgendamentos?mesaId=${mesaId}&data=${hoje}&status=ACEITO`
-                );
+                // Busca paralela de horários aceitos e pendentes do usuário
+                const [aceitos, pendentes] = await Promise.all([
+                    api.get(`/agendamentos/listarAgendamentos?mesaId=${mesaId}&data=${hoje}&status=ACEITO`),
+                    api.get(`/agendamentos/meusAgendamentos?status=PENDENTE&mesaId=${mesaId}&data=${hoje}`)
+                ]);
 
                 const slotsComStatus = timeBlocks.map(block => {
+                    // Verifica se está ocupado (ACEITO)
+                    const ocupado = aceitos.data.some(ag =>
+                        compareHorarios(ag.horario_inicio, block.start) &&
+                        compareHorarios(ag.horario_fim, block.end)
+                    );
 
-                    const horaInicioUTC = block.start;
-                    const horaFimUTC = block.end;
-
-                    const ocupado = agendamentos.some(ag => {
-                        const inicio = new Date(ag.horario_inicio)
-                            .toISOString()
-                            .split('T')[1]
-                            .substring(0, 5);
-                        const fim = new Date(ag.horario_fim)
-                            .toISOString()
-                            .split('T')[1]
-                            .substring(0, 5);
-
-                        return inicio === horaInicioUTC && fim === horaFimUTC;
-                    });
+                    // Verifica se está pendente (PENDENTE do usuário)
+                    const pendente = pendentes.data.some(ag =>
+                        compareHorarios(ag.horario_inicio, block.start) &&
+                        compareHorarios(ag.horario_fim, block.end)
+                    );
 
                     return {
                         ...block,
-                        status: ocupado ? 'occupied' : 'available',
+                        status: ocupado ? 'occupied' : pendente ? 'pending' : 'available',
                         time: `${block.start} - ${block.end}`
                     };
                 });
@@ -91,6 +89,13 @@ function Agendamento() {
 
         carregarHorarios();
     }, [mesaId]);
+
+    // Função auxiliar para comparar horários
+    const compareHorarios = (dataISO, hora) => {
+        const data = new Date(dataISO);
+        const horasISO = data.toISOString().split('T')[1].substring(0, 5);
+        return horasISO === hora;
+    };
 
     const handleSchedule = async (slot) => {
         try {
