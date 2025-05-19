@@ -3,7 +3,10 @@ import '../CardAgendamento/CardAgendamento.css';
 
 const CardAgendamento = ({ agendamento }) => {
     const formatarData = (dataISO) => {
-        return new Date(dataISO).toLocaleDateString('pt-BR');
+        // Converter UTC para horário local
+        const dataUTC = new Date(dataISO);
+        const dataLocal = new Date(dataUTC.getTime() + dataUTC.getTimezoneOffset() * 60000);
+        return dataLocal.toLocaleDateString('pt-BR');
     };
 
     const formatarHorario = (horarioISO) => {

@@ -10,6 +10,7 @@ import CardAgendamento from '../../Components/CardAgendamento/CardAgendamento';
 import api from '../../api/api';
 import Spinner from '../../Components/Spinner/Spinner';
 import Notification from '../../Components/Notification/Notification';
+import EmptyState from '../../assets/empty.png'
 
 const Historico = () => {
     const isMobile = useIsMobile();
@@ -105,12 +106,19 @@ const Historico = () => {
                 </div>
 
                 <div className="lista-agendamentos">
-                    {agendamentos.map((agendamento) => (
-                        <CardAgendamento
-                            key={agendamento.id}
-                            agendamento={agendamento}
-                        />
-                    ))}
+                    {agendamentos.length === 0 ? (
+                        <div className="empty-state-historico">
+                            <img src={EmptyState} alt="Estado vazio" className="empty-image-historico" />
+                            <p className="empty-text-historico">Você não tem agendamentos no momento</p>
+                        </div>
+                    ) : (
+                        agendamentos.map((agendamento) => (
+                            <CardAgendamento
+                                key={agendamento.id}
+                                agendamento={agendamento}
+                            />
+                        ))
+                    )}
                 </div>
             </div>
         </div>

@@ -24,18 +24,7 @@ const CardPedidoSupervisor = ({ pedido, onAction }) => {
 
       <div className="cardDetalhes">
         <p>Data: {pedido.data}</p>
-        <p>Horário: {
-          new Date(pedido.horario_inicio).toLocaleTimeString('pt-BR', {
-            hour: '2-digit',
-            minute: '2-digit',
-            timeZone: 'UTC'
-          })} - {
-            new Date(pedido.horario_fim).toLocaleTimeString('pt-BR', {
-              hour: '2-digit',
-              minute: '2-digit',
-              timeZone: 'UTC'
-            })
-          }</p>
+        <p>Horário: {pedido.horario}</p>
         <p>Aluno: {pedido.aluno}</p>
       </div>
 

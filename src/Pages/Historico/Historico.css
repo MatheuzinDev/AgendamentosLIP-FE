@@ -94,10 +94,32 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Mantenha as outras regras existentes */
+.empty-state-historico {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+}
+
+.empty-image-historico {
+    width: 200px;
+    height: auto;
+    opacity: 0.7;
+    margin-bottom: 1.5rem;
+}
+
+.empty-text-historico {
+    color: #64748b;
+    font-size: 1.2rem;
+    font-weight: 500;
+    max-width: 300px;
+    line-height: 1.5;
+}
 
 /* Desktop */
-@media (min-width: 769px) {
+@media (min-width: 768px) {
     .historico-container {
         margin-top: 20px;
         padding: 2rem 5vw;
@@ -105,6 +127,21 @@
         margin-left: auto;
         margin-right: auto;
     }
+
+    .empty-state-historico {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        margin-top: 0;
+        padding: 0;
+    }
+
+    .historico-container {
+    position: relative;
+    min-height: 500px;
+  }
 
     .lista-agendamentos {
         grid-template-columns: repeat(3, 1fr);

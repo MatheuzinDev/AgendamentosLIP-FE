@@ -8,6 +8,7 @@ import ImgPerfil from "../../assets/do-utilizador.png";
 import CardPedidoSupervisor from '../../Components/CardPedidoSupervisor/CardPedidoSupervisor';
 import Spinner from '../../Components/Spinner/Spinner';
 import api from '../../api/api';
+import EmptyState from '../../assets/empty.png'
 
 
 const PedidosSupervisor = () => {
@@ -92,28 +93,39 @@ const PedidosSupervisor = () => {
 
             <div className="pedidos-container">
                 <div className="lista-pedidos">
-                    {pedidos.map((pedido) => {
-                        const data = new Date(pedido.data);
-                        const inicio = new Date(pedido.horario_inicio);
-                        const fim = new Date(pedido.horario_fim);
+                    {pedidos.length === 0 ? (
+                        <div className="empty-state">
+                            <img src={EmptyState} alt="Nenhum pedido" className="empty-image" />
+                            <p className="empty-text">Nenhum pedido pendente no momento</p>
+                        </div>
+                    ) : (
 
-                        const dataFormatada = data.toLocaleDateString('pt-BR');
-                        const horarioInicio = `${inicio.getUTCHours().toString().padStart(2, '0')}:${inicio.getUTCMinutes().toString().padStart(2, '0')}`;
-                        const horarioFim = `${fim.getUTCHours().toString().padStart(2, '0')}:${fim.getUTCMinutes().toString().padStart(2, '0')}`;
+                        pedidos.map((pedido) => {
+                            // Corrigindo a data
+                            const dataUTC = new Date(pedido.data);
+                            const dataLocal = new Date(dataUTC.getTime() + dataUTC.getTimezoneOffset() * 60000);
 
-                        return (
-                            <CardPedidoSupervisor
-                                key={pedido.id}
-                                pedido={{
-                                    ...pedido,
-                                    data: dataFormatada,
-                                    horario: `${horarioInicio} - ${horarioFim}`,
-                                    aluno: pedido.aluno.nome
-                                }}
-                                onAction={handleAcao}
-                            />
-                        );
-                    })}
+                            // Corrigindo horários
+                            const inicioUTC = new Date(pedido.horario_inicio);
+                            const inicioLocal = new Date(inicioUTC.getTime() + inicioUTC.getTimezoneOffset() * 60000);
+
+                            const fimUTC = new Date(pedido.horario_fim);
+                            const fimLocal = new Date(fimUTC.getTime() + fimUTC.getTimezoneOffset() * 60000);
+
+                            return (
+                                <CardPedidoSupervisor
+                                    key={pedido.id}
+                                    pedido={{
+                                        ...pedido,
+                                        data: dataLocal.toLocaleDateString('pt-BR'),
+                                        horario: `${inicioLocal.getHours().toString().padStart(2, '0')}:${inicioLocal.getMinutes().toString().padStart(2, '0')} - ${fimLocal.getHours().toString().padStart(2, '0')}:${fimLocal.getMinutes().toString().padStart(2, '0')}`,
+                                        aluno: pedido.aluno.nome
+                                    }}
+                                    onAction={handleAcao}
+                                />
+                            );
+                        }))
+                    }
                 </div>
             </div>
         </div>

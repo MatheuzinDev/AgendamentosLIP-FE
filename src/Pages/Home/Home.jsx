@@ -20,6 +20,7 @@ function Home() {
     message: '',
     type: ''
   });
+  const [meusAgendamentosCount, setMeusAgendamentosCount] = useState(0);
 
   useEffect(() => {
     const carregarMesas = async () => {
@@ -40,6 +41,35 @@ function Home() {
 
     carregarMesas();
   }, [navigate]);
+  
+  useEffect(() => {
+    const carregarDados = async () => {
+      try {
+        setLoading(true);
+        const user = JSON.parse(localStorage.getItem('user'));
+        
+        const [mesasResponse, agendamentosResponse] = await Promise.all([
+          api.get('/mesas/listarMesas'),
+          api.get('/agendamentos/meusAgendamentos', {
+            params: {
+              status: 'ACEITO',
+              data: new Date().toISOString().split('T')[0] // Data atual em YYYY-MM-DD
+            }
+          })
+        ]);
+
+        setMesas(mesasResponse.data);
+        setMeusAgendamentosCount(agendamentosResponse.data.length);
+        
+      } catch (error) {
+        console.log(`Erro ao carregar meus agendamentos: ${error}`)
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    carregarDados();
+  }, [navigate]);
 
   const showNotification = (message, type) => {
     setNotification({ show: true, message, type });
@@ -58,7 +88,7 @@ function Home() {
             <HamburgerMenu />
             <h1 className="titulo-pagina">Mesas do laboratório</h1>
           </div>
-          <img src={ImgPerfil} alt="Perfil" className='icone-perfil'/>
+          <img src={ImgPerfil} alt="Perfil" className='icone-perfil' />
         </div>
       ) : (
         <>
@@ -74,7 +104,7 @@ function Home() {
         </div>
         <div className="dashboard-box">
           <p>Meus agendamentos</p>
-          <h2>2</h2>
+          <h2>{meusAgendamentosCount}</h2>
         </div>
       </div>
 
