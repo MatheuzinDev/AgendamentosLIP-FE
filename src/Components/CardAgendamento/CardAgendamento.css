@@ -101,3 +101,9 @@
 .cardDetalhes {
     flex-grow: 1;
 }
+
+/* Adicione estilo para status reservado */
+.statusBadge.reservado {
+    background-color: #f59e0b;
+    color: white;
+}

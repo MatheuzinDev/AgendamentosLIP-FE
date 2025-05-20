@@ -6,6 +6,10 @@ import HamburgerMenu from "../../Components/MenuHamburger/MenuHamburger";
 import Button from "../../Components/Button/Button";
 import "./QrCode.css";
 import ImgPerfil from "../../assets/do-utilizador.png";
+import api from '../../api/api';
+import Notification from '../../Components/Notification/Notification';
+import Spinner from '../../Components/Spinner/Spinner';
+import { HORARIOS_AULA } from '../../constants/constants';
 
 const QrCode = () => {
     const [result, setResult] = useState('');
@@ -13,32 +17,46 @@ const QrCode = () => {
     const [cameraActive, setCameraActive] = useState(false);
     const isMobile = useIsMobile();
     const controllerRef = useRef(null);
+    const [notification, setNotification] = useState({ show: false, message: '', type: '' });
 
     useEffect(() => {
-        if (cameraActive) {
-            const codeReader = new BrowserQRCodeReader();
-            
-            codeReader.decodeFromVideoDevice(undefined, 'video-preview', (result, error) => {
-                if (result) {
-                    setResult(result.getText());
-                    setCameraActive(false);
-                }
-                
-                if (error && !(error instanceof DOMException)) {
-                    setError(error.message);
-                }
-            }).then(controller => {
+        let activeController;
+
+        const startScanner = async () => {
+            try {
+                const codeReader = new BrowserQRCodeReader();
+
+                const controller = await codeReader.decodeFromVideoDevice(
+                    undefined,
+                    'video-preview',
+                    (result, error) => {
+                        if (result) {
+                            handleQRScan(result.getText());
+                            controller.stop();
+                            setCameraActive(false);
+                        }
+                        if (error && !(error instanceof DOMException)) {
+                            setError(error.message);
+                        }
+                    }
+                );
+
+                activeController = controller;
                 controllerRef.current = controller;
-            }).catch(err => {
-                setError(err.message);
+
+            } catch (error) {
+                setError('Falha ao iniciar câmera: ' + error.message);
                 setCameraActive(false);
-            });
+            }
+        };
+
+        if (cameraActive) {
+            startScanner();
         }
 
         return () => {
-            if (controllerRef.current) {
-                controllerRef.current.stop();
-                controllerRef.current = null;
+            if (activeController) {
+                activeController.stop();
             }
         };
     }, [cameraActive]);
@@ -49,6 +67,35 @@ const QrCode = () => {
             setResult('');
         }
         setCameraActive(!cameraActive);
+    };
+
+    const showNotification = (message, type) => {
+        setNotification({ show: true, message, type });
+        setTimeout(() => setNotification({ ...notification, show: false }), 3000);
+    };
+
+    const handleQRScan = async (mesaId) => {
+        try {
+            setError(null);
+
+            // Enviar apenas o horário atual em UTC
+            const response = await api.post('/agendamentos/checkinQr', {
+                mesaId,
+                agora: new Date().toISOString() // Já está em UTC
+            });
+
+            setResult(`Check-in até ${new Date(response.data.horario_fim).toLocaleTimeString()}`);
+            showNotification('Check-in realizado!', 'success');
+
+        } catch (error) {
+            const errorMessage = error.response?.data?.message || 'Falha no check-in';
+            setError(errorMessage);
+
+            if (controllerRef.current) {
+                controllerRef.current.stop();
+                setCameraActive(false);
+            }
+        }
     };
 
     return (
@@ -71,10 +118,10 @@ const QrCode = () => {
             <div className="qr-container">
                 <div className="qr-content">
                     <h2 className="qr-title">Escaneie o QR Code da mesa</h2>
-                    
+
                     <div className="scanner-wrapper">
                         {cameraActive ? (
-                            <video 
+                            <video
                                 id="video-preview"
                                 className="video-preview"
                                 style={{
@@ -88,8 +135,8 @@ const QrCode = () => {
                         ) : (
                             <div className="camera-placeholder">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
-                                    <circle cx="12" cy="13" r="3"/>
+                                    <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
+                                    <circle cx="12" cy="13" r="3" />
                                 </svg>
                             </div>
                         )}
@@ -100,12 +147,6 @@ const QrCode = () => {
                     {error && (
                         <div className="error-message">
                             <p>⚠️ {error}</p>
-                            <small>Soluções possíveis:</small>
-                            <ul>
-                                <li>Atualize o navegador</li>
-                                <li>Conceda permissão à câmera</li>
-                                <li>Acesse via HTTPS</li>
-                            </ul>
                         </div>
                     )}
 

@@ -28,6 +28,7 @@ const Historico = () => {
                     case 'pending': status = 'PENDENTE'; break;
                     case 'accepted': status = 'ACEITO'; break;
                     case 'rejected': status = 'REJEITADO'; break;
+                    case 'reserved': status = 'RESERVADO'; break;
                     default: status = undefined;
                 }
 
@@ -102,6 +103,13 @@ const Historico = () => {
                         backgroundColor={filtroAtivo === 'rejected' ? "#3b82f6" : "#e2e8f0"}
                         color={filtroAtivo === 'rejected' ? "white" : "#64748b"}
                         className={`filtro-btn ${filtroAtivo === 'rejected' ? 'filtro-ativo' : ''}`}
+                    />
+                    <Button
+                        text="Reservados"
+                        onClick={() => setFiltroAtivo('reserved')}
+                        padding="0.5rem 1rem"
+                        backgroundColor={filtroAtivo === 'reserved' ? "#3b82f6" : "#e2e8f0"}
+                        color={filtroAtivo === 'reserved' ? "white" : "#64748b"}
                     />
                 </div>
 
