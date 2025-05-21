@@ -6,14 +6,17 @@ const CardAgendamento = ({ agendamento }) => {
     const user = JSON.parse(localStorage.getItem('user'));
 
     const formatarData = (dataISO) => {
-        const data = new Date(dataISO);
-        return data.toLocaleDateString('pt-BR');
+        // Converter UTC para horário local
+        const dataUTC = new Date(dataISO);
+        const dataLocal = new Date(dataUTC.getTime() + dataUTC.getTimezoneOffset() * 60000);
+        return dataLocal.toLocaleDateString('pt-BR');
     };
-
+    
     const formatarHorario = (horarioISO) => {
-        return new Date(horarioISO).toLocaleTimeString('pt-BR', { 
-            hour: '2-digit', 
-            minute: '2-digit'
+        return new Date(horarioISO).toLocaleTimeString('pt-BR', {
+            hour: '2-digit',
+            minute: '2-digit',
+            timeZone: 'UTC' // Mantém o horário original
         });
     };
 
@@ -31,14 +34,14 @@ const CardAgendamento = ({ agendamento }) => {
                 {user.tipo === 'SUPERVISOR' && (
                     <p>Aluno: {agendamento.aluno.nome} ({agendamento.aluno.matricula})</p>
                 )}
-                
+
                 <p>Data: {formatarData(agendamento.data)}</p>
                 <p>Horário: {formatarHorario(agendamento.horario_inicio)} - {formatarHorario(agendamento.horario_fim)}</p>
-                
+
                 {agendamento.supervisor?.nome && (
                     <p>Supervisor: {agendamento.supervisor.nome}</p>
                 )}
-                
+
                 {agendamento.motivo_rejeicao && (
                     <p className="motivoRejeicao">Motivo: {agendamento.motivo_rejeicao}</p>
                 )}
@@ -46,5 +49,6 @@ const CardAgendamento = ({ agendamento }) => {
         </div>
     );
 };
+
 
 export default CardAgendamento;

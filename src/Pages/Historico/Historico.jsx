@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import useIsMobile from '../../hooks/useIsMobile';
@@ -12,7 +11,21 @@ import CardAgendamento from '../../Components/CardAgendamento/CardAgendamento';
 import api from '../../api/api';
 import Spinner from '../../Components/Spinner/Spinner';
 import Notification from '../../Components/Notification/Notification';
-import EmptyState from '../../assets/empty.png'
+import EmptyState from '../../assets/empty.png';
+
+// Funções auxiliares de formatação
+const formatarDataLocal = (dataUTC) => {
+    const date = new Date(dataUTC);
+    return new Date(date.getTime() + date.getTimezoneOffset() * 60000).toLocaleDateString('pt-BR');
+};
+
+const formatarHorarioUTC = (horarioISO) => {
+    return new Date(horarioISO).toLocaleTimeString('pt-BR', { 
+        hour: '2-digit', 
+        minute: '2-digit',
+        timeZone: 'UTC'
+    });
+};
 
 const Historico = () => {
     const isMobile = useIsMobile();
@@ -20,6 +33,7 @@ const Historico = () => {
     const [loading, setLoading] = useState(true);
     const [notification, setNotification] = useState({ show: false, message: '', type: '' });
     const [filtroAtivo, setFiltroAtivo] = useState('all');
+    const [periodoRelatorio, setPeriodoRelatorio] = useState('todos');
     const user = JSON.parse(localStorage.getItem('user'));
 
     useEffect(() => {
@@ -52,12 +66,55 @@ const Historico = () => {
         setTimeout(() => setNotification({ ...notification, show: false }), 3000);
     };
 
+    const filtrarPorPeriodo = (agendamentos) => {
+        const hojeUTC = new Date(new Date().toISOString().split('T')[0]);
+        
+        switch(periodoRelatorio) {
+            case 'hoje':
+                return agendamentos.filter(a => {
+                    const dataAgendamento = new Date(a.data);
+                    return dataAgendamento.toISOString().split('T')[0] === hojeUTC.toISOString().split('T')[0];
+                });
+                
+            case 'semana':
+                const primeiroDiaSemana = new Date(hojeUTC);
+                primeiroDiaSemana.setDate(hojeUTC.getDate() - hojeUTC.getDay());
+                const ultimoDiaSemana = new Date(primeiroDiaSemana);
+                ultimoDiaSemana.setDate(primeiroDiaSemana.getDate() + 6);
+                
+                return agendamentos.filter(a => {
+                    const data = new Date(a.data);
+                    return data >= primeiroDiaSemana && data <= ultimoDiaSemana;
+                });
+                
+            case 'mes':
+                return agendamentos.filter(a => {
+                    const data = new Date(a.data);
+                    return data.getMonth() === hojeUTC.getMonth() && 
+                           data.getFullYear() === hojeUTC.getFullYear();
+                });
+                
+            default:
+                return agendamentos;
+        }
+    };
+
+    const getTituloPeriodo = () => {
+        switch(periodoRelatorio) {
+            case 'hoje': return 'Hoje';
+            case 'semana': return 'Esta Semana';
+            case 'mes': return 'Este Mês';
+            default: return 'Todos os Períodos';
+        }
+    };
+
     const gerarRelatorioPDF = () => {
+        const agendamentosFiltrados = filtrarPorPeriodo([...agendamentos]);
         const doc = new jsPDF();
 
         // Cabeçalho
         doc.setFontSize(18);
-        doc.text("Relatório de Agendamentos - LIP", 15, 15);
+        doc.text(`Relatório de Agendamentos - ${getTituloPeriodo()}`, 15, 15);
         doc.setFontSize(12);
         doc.text(`Gerado em: ${new Date().toLocaleDateString()}`, 15, 23);
 
@@ -66,23 +123,11 @@ const Historico = () => {
             ? ['Mesa', 'Aluno', 'Matrícula', 'Data', 'Horário', 'Status']
             : ['Mesa', 'Data', 'Horário', 'Status'];
 
-        const sorted = [...agendamentos].sort((a, b) => {
-            const dateA = new Date(a.data);
-            const dateB = new Date(b.data);
-            if (dateA.getTime() !== dateB.getTime()) {
-                return dateB - dateA;
-            }
-            // Se quiser refinar por horário de início no mesmo dia:
-            return new Date(a.horario_inicio) - new Date(b.horario_inicio);
-        });
-
-
-        const rows = sorted.map(agendamento => {
+        const rows = agendamentosFiltrados.map(agendamento => {
             const baseRow = [
                 agendamento.mesa.numero,
-                new Date(agendamento.data).toLocaleDateString('pt-BR'),
-                `${new Date(agendamento.horario_inicio).toLocaleTimeString('pt-BR', { timeStyle: 'short' })} – ` +
-                `${new Date(agendamento.horario_fim).toLocaleTimeString('pt-BR', { timeStyle: 'short' })}`,
+                formatarDataLocal(agendamento.data),
+                `${formatarHorarioUTC(agendamento.horario_inicio)} - ${formatarHorarioUTC(agendamento.horario_fim)}`,
                 agendamento.status.toLowerCase()
             ];
 
@@ -185,34 +230,62 @@ const Historico = () => {
                     </div>
 
                     {user?.tipo === 'SUPERVISOR' && (
-                        <Button
-                            text="Gerar Relatório"
-                            onClick={gerarRelatorioPDF}
-                            padding="0.5rem 1.5rem"
-                            borderRadius="8px"
-                            backgroundColor="#10b981"
-                            color="white"
-                            className="btn-relatorio"
-                        />
+                        <div className="filtro-relatorio">
+                            <select 
+                                value={periodoRelatorio}
+                                onChange={(e) => setPeriodoRelatorio(e.target.value)}
+                                className="seletor-periodo"
+                            >
+                                <option value="todos">Todos</option>
+                                <option value="hoje">Hoje</option>
+                                <option value="semana">Esta Semana</option>
+                                <option value="mes">Este Mês</option>
+                            </select>
+                            
+                            <Button
+                                text="Gerar Relatório"
+                                onClick={gerarRelatorioPDF}
+                                padding="0.5rem 1.5rem"
+                                borderRadius="8px"
+                                backgroundColor="#10b981"
+                                color="white"
+                                className="btn-relatorio"
+                            />
+                        </div>
                     )}
                 </div>
 
                 <div className="lista-agendamentos">
-                    {agendamentos.length === 0 ? (
+                    {loading ? (
+                        <Spinner />
+                    ) : agendamentos.length === 0 ? (
                         <div className="empty-state-historico">
                             <img src={EmptyState} alt="Estado vazio" className="empty-image-historico" />
                             <p className="empty-text-historico">Você não tem agendamentos no momento</p>
                         </div>
                     ) : (
-                        agendamentos.map((agendamento) => (
-                            <CardAgendamento
-                                key={agendamento.id}
-                                agendamento={agendamento}
-                            />
-                        ))
+                        [...agendamentos]
+                            .sort((a, b) => {
+                                const dateA = new Date(a.data + 'T' + a.horario_inicio);
+                                const dateB = new Date(b.data + 'T' + b.horario_inicio);
+                                return dateB - dateA;
+                            })
+                            .map((agendamento) => (
+                                <CardAgendamento
+                                    key={agendamento.id}
+                                    agendamento={agendamento}
+                                />
+                            ))
                     )}
                 </div>
             </div>
+
+            <Notification
+                show={notification.show}
+                message={notification.message}
+                type={notification.type}
+                onClose={() => setNotification({ ...notification, show: false })}
+            />
         </div>
     );
 };
