@@ -5,6 +5,4 @@ export const HORARIOS_AULA = [
     { inicio: '13:30', fim: '15:10' },
     { inicio: '15:30', fim: '17:10' },
     { inicio: '17:20', fim: '19:00' },
-    { inicio: '19:00', fim: '20:40' },
-    { inicio: '21:00', fim: '22:40' }
 ];

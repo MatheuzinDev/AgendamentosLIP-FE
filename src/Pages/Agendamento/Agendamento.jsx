@@ -28,8 +28,6 @@ function Agendamento() {
         { start: '13:30', end: '15:10' },
         { start: '15:30', end: '17:10' },
         { start: '17:20', end: '19:00' },
-        { start: '19:00', end: '20:40' },
-        { start: '21:00', end: '22:40' }
     ];
 
     useEffect(() => {
