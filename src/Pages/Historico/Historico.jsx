@@ -280,12 +280,13 @@ const Historico = () => {
                 </div>
             </div>
 
-            <Notification
-                show={notification.show}
-                message={notification.message}
-                type={notification.type}
-                onClose={() => setNotification({ ...notification, show: false })}
-            />
+            {notification.show && (
+                <Notification
+                    message={notification.message}
+                    type={notification.type}
+                    onClose={() => setNotification({ ...notification, show: false })}
+                />
+            )}
         </div>
     );
 };
