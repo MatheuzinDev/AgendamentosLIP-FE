@@ -118,6 +118,48 @@
     line-height: 1.5;
 }
 
+.filtros {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.filtros-left {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.btn-relatorio {
+    margin-left: auto;
+    transition: all 0.3s ease;
+}
+
+.btn-relatorio:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #059669 !important;
+}
+
+@media (max-width: 768px) {
+    .filtros {
+        gap: 0.5rem;
+    }
+    
+    .filtros-left {
+        gap: 0.5rem;
+    }
+    
+    .btn-relatorio {
+        width: 100%;
+        order: 3;
+        margin-top: 1rem;
+    }
+}
+
 /* Desktop */
 @media (min-width: 768px) {
     .historico-container {
